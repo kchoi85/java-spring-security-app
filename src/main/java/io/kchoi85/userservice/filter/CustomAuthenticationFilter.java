@@ -8,6 +8,9 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
+import com.auth0.jwt.algorithms.Algorithm;
+
+import io.kchoi85.userservice.model.User;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -28,5 +31,14 @@ public class CustomAuthenticationFilter extends UsernamePasswordAuthenticationFi
                 username,
                 password);
         return authenticationManager.authenticate(authenticationToken);
+    }
+
+    protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+            Authentication authResult) {
+        log.info("Successful authentication with username: {}", authResult.getName());
+        User user = (User) authResult.getPrincipal();
+
+        // JWT token algorithm
+        Algorithm algorithm = Algorithm.HMAC256("secret");
     }
 }
