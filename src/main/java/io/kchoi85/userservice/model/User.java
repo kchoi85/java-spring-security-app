@@ -14,7 +14,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Data
+@Data // Lombok annotation - getter, setter, toString, equals, hashCode
 @NoArgsConstructor
 @AllArgsConstructor
 public class User {
